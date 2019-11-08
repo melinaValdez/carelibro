@@ -105,12 +105,12 @@ public class PostActivity extends AppCompatActivity {
 
     private void storingImageToFirebaseStorage(){
         Calendar calForDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("EEE, MMM d, yy");
         saveCurrentDate = currentDate.format(calForDate.getTime());
 
         Calendar calForTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
-        saveCurrentDate = currentTime.format(calForDate.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("h:mm a");
+        saveCurrentTime = currentTime.format(calForTime.getTime());
         postRandomName = saveCurrentDate + saveCurrentTime;
 
         StorageReference filePath = postsImagesReference.child("Post images").child(imageUri.getLastPathSegment() + postRandomName);
@@ -118,7 +118,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(PostActivity.this, "Image uploaded succesfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, saveCurrentTime.toString(), Toast.LENGTH_SHORT).show();
                 }
                 else{
                     String message = task.getException().getMessage();
