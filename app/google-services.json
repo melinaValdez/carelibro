@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "349368866812",
+    "firebase_url": "https://carelibro-949ef.firebaseio.com",
+    "project_id": "carelibro-949ef",
+    "storage_bucket": "carelibro-949ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349368866812:android:820b07d11676d04a4a8479",
+        "android_client_info": {
+          "package_name": "com.example.carelibro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349368866812-8i7ubjgctkva2fg5ot0iej156dhthubp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carelibro",
+            "certificate_hash": "263f959490658cc599a9f4edcdb2443d7e13d3b3"
+          }
+        },
+        {
+          "client_id": "349368866812-mdd3bmrcu8u0fv4mqmdppq9ig480g5nu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwNuUXYPO8HN2W5B_xx9U9n5lMtsXNIPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349368866812-mdd3bmrcu8u0fv4mqmdppq9ig480g5nu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

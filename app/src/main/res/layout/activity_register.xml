@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="250dp"
+            android:layout_height="170dp"
+            app:srcCompat="@drawable/carelibro"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@+id/toolbar"
+            android:layout_marginTop="130dp" />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:inputType="textEmailAddress"
+            android:layout_alignTop="@id/imgLogo"
+            android:layout_marginTop="180dp"
+            android:hint="Email"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/email" />
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:textSize="18sp"
+            android:layout_alignStart="@+id/txtEmail"
+            android:layout_alignEnd="@+id/txtEmail"
+            android:layout_alignTop="@+id/txtEmail"
+            android:layout_marginTop="80dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/password"/>
+
+        <EditText
+            android:id="@+id/txtConfirmPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Confirm password"
+            android:layout_alignTop="@+id/txtPassword"
+            android:layout_marginTop="80dp"
+            android:layout_alignEnd="@+id/txtPassword"
+            android:layout_alignStart="@+id/txtPassword"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/password"/>
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Create account"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/txtConfirmPass"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/buttons"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
