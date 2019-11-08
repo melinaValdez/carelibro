@@ -13,9 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -101,14 +105,26 @@ public class PostActivity extends AppCompatActivity {
 
     private void storingImageToFirebaseStorage(){
         Calendar calForDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("EEE, MMM d, yy");
         saveCurrentDate = currentDate.format(calForDate.getTime());
 
         Calendar calForTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
-        saveCurrentDate = currentTime.format(calForDate.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("h:mm a");
+        saveCurrentTime = currentTime.format(calForTime.getTime());
         postRandomName = saveCurrentDate + saveCurrentTime;
 
-        StorageReference filePath = postsImagesReference.child("Post images").child();
+        StorageReference filePath = postsImagesReference.child("Post images").child(imageUri.getLastPathSegment() + postRandomName);
+        filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(PostActivity.this, "Photo uploated succesfully", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String message = task.getException().getMessage();
+                    Toast.makeText(PostActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
