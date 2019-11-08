@@ -118,7 +118,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(PostActivity.this, saveCurrentTime.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Photo uploated succesfully", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     String message = task.getException().getMessage();
