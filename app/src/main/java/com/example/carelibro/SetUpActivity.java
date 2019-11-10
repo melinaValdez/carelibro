@@ -120,7 +120,7 @@ public class SetUpActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 loadingDialog.setTitle("Profile Image");
-                loadingDialog.setMessage("Please wait, while we update your profile image");
+                loadingDialog.setMessage("Please, wait while we update your profile image");
                 loadingDialog.show();
                 loadingDialog.setCanceledOnTouchOutside(true);
 
