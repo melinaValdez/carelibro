@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     if(dataSnapshot.hasChild("profilePic"))
                     {
                         String image = dataSnapshot.child("profilePic").getValue().toString();
-                        Picasso.get().load(image).placeholder(R.drawable.profile).into(navProfileImage);
+                        Picasso.get().load(image).into(navProfileImage);
                     }
                 }
             }
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void setDate(String date){
             TextView postDate = (TextView) mView.findViewById(R.id.txtPostDate);
-            postDate.setText("  " + date);
+            postDate.setText("                        " + date);
         }
 
         public void setDescription(String description){

@@ -131,7 +131,7 @@ public class SetUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SetUpActivity.this, "Profile Image stored successfully to Firebase storage...", Toast.LENGTH_SHORT).show();
-                            final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
+                            final String downloadUrl = task.getResult().getMetadata().getReference().getDownloadUrl().toString();
                             userReference.child("profilePic").setValue(downloadUrl)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
