@@ -120,7 +120,7 @@ public class PostActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
-        postRandomName = ImageUri.getLastPathSegment() + saveCurrentTime;
+        postRandomName = saveCurrentDate + saveCurrentTime + ImageUri.getLastPathSegment();
 
 
         StorageReference filePath = PostsImagesRefrence.child("Post Images").child(postRandomName);
