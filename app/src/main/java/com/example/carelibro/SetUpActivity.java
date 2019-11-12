@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -126,30 +128,32 @@ public class SetUpActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
                 StorageReference filePath = userProfilePicReference.child(currentUserId);
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SetUpActivity.this, "Profile Image stored successfully to Firebase storage...", Toast.LENGTH_SHORT).show();
-                            final String downloadUrl = task.getResult().getMetadata().getReference().getDownloadUrl().toString();
-                            userReference.child("profilePic").setValue(downloadUrl)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Intent selfIntent = new Intent(SetUpActivity.this, SetUpActivity.class);
-                                                startActivity(selfIntent);
-                                                Toast.makeText(SetUpActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
-                                            } else {
-                                                String message = task.getException().getMessage();
-                                                Toast.makeText(SetUpActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
-                                            }
+                    public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(SetUpActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
+                        final String downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                        userReference.child("profilePic").setValue(downloadUrl)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Intent selfIntent = new Intent(SetUpActivity.this, SetUpActivity.class);
+                                            startActivity(selfIntent);
+                                            Toast.makeText(SetUpActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            String message = task.getException().getMessage();
+                                            Toast.makeText(SetUpActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
                                         }
-                                    });
-                        } else {
-                            String message = task.getException().getMessage();
-                            Toast.makeText(SetUpActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
-                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        String message = taskSnapshot.getError().getMessage().toString();
+                                        Toast.makeText(SetUpActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
+                                    };
+                                });
                     }
                 });
 
@@ -173,16 +177,16 @@ public class SetUpActivity extends AppCompatActivity {
         String dateOfBirth = txtdateOfBirth.getText().toString();
 
         if (TextUtils.isEmpty(username)){
-            Toast.makeText(this, "Please write your username", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please, write your username", Toast.LENGTH_LONG).show();
         }
         else if (TextUtils.isEmpty(fullName)){
-            Toast.makeText(this, "Please write your full name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please, write your full name", Toast.LENGTH_LONG).show();
         }
         else if (TextUtils.isEmpty(city)){
-            Toast.makeText(this, "Please write your city", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please, write your city", Toast.LENGTH_LONG).show();
         }
         else if (TextUtils.isEmpty(dateOfBirth)){
-            Toast.makeText(this, "Please write your date of birth", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please, write your date of birth", Toast.LENGTH_LONG).show();
         }
         else{
             loadingDialog.setTitle("Saving your information");
