@@ -113,14 +113,14 @@ public class PostActivity extends AppCompatActivity {
     private void StoringImageToFirebaseStorage()
     {
         Calendar calFordDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMM-yy");
         saveCurrentDate = currentDate.format(calFordDate.getTime());
 
         Calendar calFordTime = Calendar.getInstance();
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
-        postRandomName = saveCurrentDate + saveCurrentTime + ImageUri.getLastPathSegment();
+        postRandomName =ImageUri.getLastPathSegment() + saveCurrentTime;
 
 
         StorageReference filePath = PostsImagesRefrence.child("Post Images").child(postRandomName);

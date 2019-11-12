@@ -223,12 +223,24 @@ public class MainActivity extends AppCompatActivity {
                         ) {
                     @Override
                     protected void populateViewHolder(PostsViewHolder postsViewHolder, Posts model, int position) {
+                        final String postKey = getRef(position).getKey();
+
                         postsViewHolder.setFullName(model.getFullname());
                         postsViewHolder.setTime(model.getTime());
                         postsViewHolder.setDate(model.getDate());
                         postsViewHolder.setDescription(model.getDescription());
                         postsViewHolder.setProfilePic(model.getProfileimage());
                         postsViewHolder.setPostImage(model.getPostimage());
+
+                        postsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
+                                clickPostIntent.putExtra("postKey", postKey);
+                                startActivity(clickPostIntent);
+                            }
+                        });
+
                     }
                 };
         postList.setAdapter(firebaseRecyclerAdapter);
@@ -259,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void setDate(String date){
             TextView postDate = (TextView) mView.findViewById(R.id.txtPostDate);
-            postDate.setText("                        " + date);
+            postDate.setText("               " + date);
         }
 
         public void setDescription(String description){

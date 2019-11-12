@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClickPostActivity">
+    tools:context=".ClickPostActivity"
+    android:background="@color/colorAccent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,10 +13,54 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
+        <include
+            android:id="@+id/clickPost_toolbar"
+            layout = "@layout/app_bar_layout">
+        </include>
+
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:id="@+id/imgPostPic"
+            android:layout_width="wrap_content"
+            android:layout_height="228dp"
+            android:layout_alignTop="@+id/clickPost_toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
             app:srcCompat="@drawable/select_image" />
+
+        <TextView
+            android:id="@+id/tvPostDescription"
+            android:layout_width="380dp"
+            android:layout_height="100dp"
+            android:text="Post description"
+            android:layout_alignTop="@+id/imgPostPic"
+            android:layout_marginTop="250dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white"
+            android:textSize="18sp"
+            android:padding="4dp"/>
+
+        <Button
+            android:id="@+id/btnEditPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_alignTop="@+id/tvPostDescription"
+            android:layout_marginTop="120dp"
+            android:layout_alignStart="@+id/tvPostDescription"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/buttons"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/btnDeletePost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_alignTop="@+id/tvPostDescription"
+            android:layout_marginTop="120dp"
+            android:layout_alignEnd="@+id/tvPostDescription"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/buttons"
+            android:textColor="@color/white"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
