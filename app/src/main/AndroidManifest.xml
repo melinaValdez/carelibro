@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity"></activity>
+
         <activity android:name=".PersonProfileActivity"></activity>
 
         <activity
