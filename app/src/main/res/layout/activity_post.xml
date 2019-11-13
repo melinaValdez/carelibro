@@ -15,14 +15,16 @@
             android:id="@+id/updatePostPage_toolBar"
             layout="@layout/app_bar_layout"/>
 
-        <ImageButton
-            android:id="@+id/imgPicture"
-            android:layout_width="350dp"
-            android:layout_height="300dp"
+        <ImageView
+            android:id="@+id/imgImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/select_image"
-            android:layout_centerVertical="true"/>
+            android:layout_below="@+id/btnAddImage"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"/>
 
         <EditText
             android:id="@+id/txtDescription"
@@ -49,6 +51,18 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp"
             android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:id="@+id/btnAddImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/add_post"
+            android:background="@drawable/buttons"
+            android:layout_below="@id/txtDescription"
+            android:layout_marginTop="20dp"
+            android:layout_alignEnd="@+id/txtDescription"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerCrop"/>
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

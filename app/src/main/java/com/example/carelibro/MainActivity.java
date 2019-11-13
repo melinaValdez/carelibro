@@ -30,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -236,13 +237,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayAllUsersPosts(){
+        Query orderedPostsReference = postsReference.orderByChild("time");
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Posts, PostsViewHolder>
                         (
                                 Posts.class,
                                 R.layout.all_posts_layout,
                                 PostsViewHolder.class,
-                                postsReference
+                                orderedPostsReference
                         ) {
                     @Override
                     protected void populateViewHolder(final PostsViewHolder postsViewHolder, Posts model, int position) {
@@ -253,7 +255,12 @@ public class MainActivity extends AppCompatActivity {
                         postsViewHolder.setDate(model.getDate());
                         postsViewHolder.setDescription(model.getDescription());
                         postsViewHolder.setProfilePic(model.getProfileimage());
-                        postsViewHolder.setPostImage(model.getPostimage());
+                        if (model.getPostimage() != null){
+                            postsViewHolder.setPostImage(model.getPostimage());
+                        }
+                        else{
+                            postsViewHolder.setNoPostImage();
+                        }
 
                         postsViewHolder.setLikeButtonStatus(postKey);
 
@@ -390,6 +397,11 @@ public class MainActivity extends AppCompatActivity {
         public void setPostImage(String postImage){
             ImageView postPic = (ImageView) mView.findViewById(R.id.imgPostImage);
             Picasso.get().load(postImage).placeholder(R.drawable.add_post).into(postPic);
+        }
+
+        public void setNoPostImage(){
+            ImageView postPic = (ImageView) mView.findViewById(R.id.imgPostImage);
+            postPic.setVisibility(postPic.INVISIBLE);
         }
     }
 }

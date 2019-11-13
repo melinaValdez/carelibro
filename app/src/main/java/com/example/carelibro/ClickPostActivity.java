@@ -78,15 +78,22 @@ public class ClickPostActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     description = dataSnapshot.child("description").getValue().toString();
-                    image = dataSnapshot.child("postimage").getValue().toString();
+                    if (dataSnapshot.child("postimage").exists()){
+                        image = dataSnapshot.child("postimage").getValue().toString();
+                        Picasso.get().load(image).into(postImage);
+                    }
+                    else{
+                        postImage.setVisibility(postImage.INVISIBLE);
+                    }
                     databaseUserId = dataSnapshot.child("uid").getValue().toString();
-                    videoUrl = dataSnapshot.child("videoUrl").getValue().toString();
-
+                    if (dataSnapshot.child("videoUrl").exists()) {
+                        videoUrl = dataSnapshot.child("videoUrl").getValue().toString();
+                        videoWeb.loadUrl(videoUrl);
+                    }
+                    else {
+                        videoWeb.setVisibility(postImage.INVISIBLE);
+                    }
                     postDescription.setText(description);
-                    Picasso.get().load(image).into(postImage);
-
-
-                    videoWeb.loadUrl(videoUrl);
 
                     if (currentUserId.equals(databaseUserId)){
                         deleteButton.setVisibility(View.VISIBLE);
