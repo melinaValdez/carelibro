@@ -136,29 +136,34 @@ public class SetUpActivity extends AppCompatActivity {
                 filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(SetUpActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
-                        final String downloadUrl = userProfilePicReference.child(currentUserId).getDownloadUrl().toString();
-                        userReference.child("profilePic").setValue(downloadUrl)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent selfIntent = new Intent(SetUpActivity.this, SetUpActivity.class);
-                                            startActivity(selfIntent);
-                                            Toast.makeText(SetUpActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            String message = task.getException().getMessage();
-                                            Toast.makeText(SetUpActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        String message = taskSnapshot.getError().getMessage().toString();
-                                        Toast.makeText(SetUpActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
-                                    };
-                                });
+                        Toast.makeText(SetUpActivity.this, "Profile image stored successfully", Toast.LENGTH_SHORT).show();
+                        userProfilePicReference.child(currentUserId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                userReference.child("profilePic").setValue(uri.toString())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Intent selfIntent = new Intent(SetUpActivity.this, SetUpActivity.class);
+                                                    startActivity(selfIntent);
+                                                    Toast.makeText(SetUpActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    String message = task.getException().getMessage();
+                                                    Toast.makeText(SetUpActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                String message = taskSnapshot.getError().getMessage().toString();
+                                                Toast.makeText(SetUpActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
+                                            };
+                                        });
+                            }
+                        });
+
                     }
                 });
 
@@ -210,8 +215,10 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("gender", gender);
             userMap.put("phone",phone);
             userMap.put("id",mAuth.getCurrentUser().getUid());
+
             userMap.put("relationshipStatus", "None");
             userMap.put("placeOfStudy", "None");
+
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
