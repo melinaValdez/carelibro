@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetUpActivity extends AppCompatActivity {
 
-    private EditText txtusername, txtfullName, txtcity, txtdateOfBirth;
+    private EditText txtusername, txtfullName, txtcity, txtdateOfBirth, txtGender, txtPhone;
     private Button btnSaveInformation;
     private CircleImageView imgProfilePic;
     private ProgressDialog loadingDialog;
@@ -63,6 +63,8 @@ public class SetUpActivity extends AppCompatActivity {
 
         txtusername = findViewById(R.id.txtUsername);
         txtfullName = findViewById(R.id.txtFullName);
+        txtGender = findViewById(R.id.txtGender);
+        txtPhone = findViewById(R.id.txtPhone);
         txtcity = findViewById(R.id.txtCity);
         txtdateOfBirth = findViewById(R.id.txtDateOfBirth);
         btnSaveInformation = findViewById(R.id.btnSave);
@@ -134,29 +136,34 @@ public class SetUpActivity extends AppCompatActivity {
                 filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(SetUpActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
-                        final String downloadUrl = userProfilePicReference.child(currentUserId).getDownloadUrl().toString();
-                        userReference.child("profilePic").setValue(downloadUrl)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent selfIntent = new Intent(SetUpActivity.this, SetUpActivity.class);
-                                            startActivity(selfIntent);
-                                            Toast.makeText(SetUpActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            String message = task.getException().getMessage();
-                                            Toast.makeText(SetUpActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        String message = taskSnapshot.getError().getMessage().toString();
-                                        Toast.makeText(SetUpActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
-                                    };
-                                });
+                        Toast.makeText(SetUpActivity.this, "Profile image stored successfully", Toast.LENGTH_SHORT).show();
+                        userProfilePicReference.child(currentUserId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                userReference.child("profilePic").setValue(uri.toString())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Intent selfIntent = new Intent(SetUpActivity.this, SetUpActivity.class);
+                                                    startActivity(selfIntent);
+                                                    Toast.makeText(SetUpActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    String message = task.getException().getMessage();
+                                                    Toast.makeText(SetUpActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                String message = taskSnapshot.getError().getMessage().toString();
+                                                Toast.makeText(SetUpActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
+                                            };
+                                        });
+                            }
+                        });
+
                     }
                 });
 
@@ -178,6 +185,10 @@ public class SetUpActivity extends AppCompatActivity {
         String fullName = txtfullName.getText().toString();
         String city = txtcity.getText().toString();
         String dateOfBirth = txtdateOfBirth.getText().toString();
+
+
+        String gender = txtGender.getText().toString();
+        String phone = txtPhone.getText().toString();
 
         if (TextUtils.isEmpty(username)){
             Toast.makeText(this, "Please, write your username", Toast.LENGTH_LONG).show();
@@ -205,6 +216,7 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("relationshipStatus", "Relationship status");
             userMap.put("placeOfStudy", "Place of study");
             userMap.put("phoneNumber", "Phone number");
+
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {

@@ -5,4 +5,6 @@
     <string name="about_account">Don\'t have an account?</string>
     <string name="create_account">Click here to register!</string>
     <string name="sign_in_with">Login with:</string>
+
+    <string name="button_login_with_google">Login with google</string>
 </resources>
