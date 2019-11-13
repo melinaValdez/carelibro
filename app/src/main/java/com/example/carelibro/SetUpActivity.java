@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetUpActivity extends AppCompatActivity {
 
-    private EditText txtusername, txtfullName, txtcity, txtdateOfBirth;
+    private EditText txtusername, txtfullName, txtcity, txtdateOfBirth, txtGender, txtPhone;
     private Button btnSaveInformation;
     private CircleImageView imgProfilePic;
     private ProgressDialog loadingDialog;
@@ -63,6 +63,8 @@ public class SetUpActivity extends AppCompatActivity {
 
         txtusername = findViewById(R.id.txtUsername);
         txtfullName = findViewById(R.id.txtFullName);
+        txtGender = findViewById(R.id.txtGender);
+        txtPhone = findViewById(R.id.txtPhone);
         txtcity = findViewById(R.id.txtCity);
         txtdateOfBirth = findViewById(R.id.txtDateOfBirth);
         btnSaveInformation = findViewById(R.id.btnSave);
@@ -176,6 +178,10 @@ public class SetUpActivity extends AppCompatActivity {
         String city = txtcity.getText().toString();
         String dateOfBirth = txtdateOfBirth.getText().toString();
 
+
+        String gender = txtGender.getText().toString();
+        String phone = txtPhone.getText().toString();
+
         if (TextUtils.isEmpty(username)){
             Toast.makeText(this, "Please, write your username", Toast.LENGTH_LONG).show();
         }
@@ -198,8 +204,9 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("fullName", fullName);
             userMap.put("city", city);
             userMap.put("dateOfBirth", dateOfBirth);
-            userMap.put("gender", "None");
-            userMap.put("relationshipStatus", "None");
+            userMap.put("gender", gender);
+            userMap.put("phone",phone);
+            userMap.put("id",mAuth.getCurrentUser().getUid());
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
