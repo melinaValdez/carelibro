@@ -185,8 +185,6 @@ public class SetUpActivity extends AppCompatActivity {
         String fullName = txtfullName.getText().toString();
         String city = txtcity.getText().toString();
         String dateOfBirth = txtdateOfBirth.getText().toString();
-
-
         String gender = txtGender.getText().toString();
         String phone = txtPhone.getText().toString();
 
@@ -213,11 +211,9 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("city", city);
             userMap.put("dateOfBirth", dateOfBirth);
             userMap.put("gender", gender);
-            userMap.put("phone",phone);
-            userMap.put("id",mAuth.getCurrentUser().getUid());
-
             userMap.put("relationshipStatus", "None");
             userMap.put("placeOfStudy", "None");
+            userMap.put("phoneNumber", phone);
 
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override

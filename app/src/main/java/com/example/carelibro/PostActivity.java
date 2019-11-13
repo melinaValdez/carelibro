@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -120,7 +121,7 @@ public class PostActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
-        postRandomName =ImageUri.getLastPathSegment() + saveCurrentTime;
+        postRandomName = ImageUri.getLastPathSegment() + saveCurrentTime;
 
 
         StorageReference filePath = PostsImagesRefrence.child("Post Images").child(postRandomName);
@@ -131,11 +132,14 @@ public class PostActivity extends AppCompatActivity {
             {
                 if(task.isSuccessful())
                 {
-                    downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
-                    Toast.makeText(PostActivity.this, "image uploaded successfully to Storage...", Toast.LENGTH_SHORT).show();
-
-                    SavingPostInformationToDatabase();
-
+                    PostsImagesRefrence.child("Post Images").child(postRandomName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Toast.makeText(PostActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                            downloadUrl = uri.toString();
+                            SavingPostInformationToDatabase();
+                        }
+                    });
                 }
                 else
                 {
@@ -176,12 +180,12 @@ public class PostActivity extends AppCompatActivity {
                                     if(task.isSuccessful())
                                     {
                                         SendUserToMainActivity();
-                                        Toast.makeText(PostActivity.this, "New Post is updated successfully.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PostActivity.this, "New post updated successfully", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                     }
                                     else
                                     {
-                                        Toast.makeText(PostActivity.this, "Error Occured while updating your post.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PostActivity.this, "Error occured while updating your post", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                     }
                                 }
@@ -220,8 +224,6 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -234,8 +236,6 @@ public class PostActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
     private void SendUserToMainActivity()
     {
