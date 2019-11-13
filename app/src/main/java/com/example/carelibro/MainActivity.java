@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private CircleImageView navProfileImage;
     private TextView navProfileUsername;
 
+
     private FirebaseAuth mAuth;
     private DatabaseReference usersReference, postsReference, likesReference;
     String currentUserId;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         postsReference = FirebaseDatabase.getInstance().getReference().child("Posts");
         likesReference = FirebaseDatabase.getInstance().getReference().child("Likes");
         currentUserId = mAuth.getCurrentUser().getUid();
+
 
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolBar);
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
         displayAllUsersPosts();
     }
+
+
 
     @Override
     protected void onStart(){
@@ -300,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
         postList.setAdapter(firebaseRecyclerAdapter);
     }
 
+
+
     public static class PostsViewHolder extends RecyclerView.ViewHolder{
         View mView;
         ImageButton likePostButton, commentPostButton;
@@ -307,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
         int likesCount;
         String currentUserId;
         DatabaseReference likesReference;
+
 
         public PostsViewHolder (View itemView){
             super(itemView);

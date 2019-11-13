@@ -1,14 +1,14 @@
 package com.example.carelibro;
 
 public class Posts {
-    public String uid, time, date, postimage, description, profileimage, fullname;
+    public String uid, time, date, postimage, description, profileimage, fullname,videoUrl;
 
     public Posts()
     {
 
     }
 
-    public Posts(String uid, String time, String date, String postimage, String description, String profileimage, String fullname) {
+    public Posts(String uid, String time, String date, String postimage, String description, String profileimage, String fullname, String videoYoutube) {
         this.uid = uid;
         this.time = time;
         this.date = date;
@@ -16,6 +16,7 @@ public class Posts {
         this.description = description;
         this.profileimage = profileimage;
         this.fullname = fullname;
+        this.videoUrl = videoYoutube;
     }
 
     public String getUid() {
@@ -72,5 +73,13 @@ public class Posts {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoYoutube) {
+        this.videoUrl = videoYoutube;
     }
 }
