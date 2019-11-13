@@ -20,6 +20,7 @@
 
         <activity android:name=".SearchActivity"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ProfileActivity" />
 
         <activity android:name=".PersonProfileActivity"></activity>
 
