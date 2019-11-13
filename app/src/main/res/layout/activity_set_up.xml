@@ -66,7 +66,8 @@
             android:gravity="start|center"
             android:hint="Gender"
             android:inputType="textMultiLine"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:padding="4dp"/>
 
         <EditText
             android:id="@+id/txtPhone"
@@ -82,7 +83,8 @@
             android:gravity="start|center"
             android:hint="Phone"
             android:inputType="textMultiLine"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:padding="4dp"/>
 
         <EditText
             android:id="@+id/txtCity"

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchActivity"
+    android:background="@color/colorAccent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-66dp"
+        tools:layout_editor_absoluteY="27dp">
+
+        <include
+            android:id="@+id/search_toolbar"
+            layout="@layout/app_bar_layout"></include>
+
+        <RelativeLayout
+            android:id="@+id/myLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_toolbar">
+
+
+            <EditText
+                android:id="@+id/txtSearchInput"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:textSize="18sp"
+                android:padding="4dp"
+                android:layout_margin="10dp"
+                android:gravity="start|center"
+                android:hint="Search for..."/>
+
+            <ImageButton
+                android:id="@+id/btnSearchButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_search"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/buttons"/>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/myLayout"
+            android:layout_margin="7dp" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
