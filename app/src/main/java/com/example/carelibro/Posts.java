@@ -21,7 +21,7 @@ public class Posts {
         this.description = description;
         this.profileimage = profileimage;
 
-        this.fullname = fullname;
+        this.fullName = fullName;
 
     }
 
