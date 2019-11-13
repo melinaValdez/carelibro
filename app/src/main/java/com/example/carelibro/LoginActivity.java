@@ -26,7 +26,7 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private EditText userEmail, userPassword;
-    private TextView newAccountLink;
+    private TextView newAccountLink, resetPassword;
 
     private FirebaseAuth mAuth;
 
@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         userEmail = findViewById(R.id.txtEmail);
         userPassword = findViewById(R.id.txtPassword);
         loginButton = findViewById(R.id.btnLogin);
+        resetPassword = findViewById(R.id.txtForgetPassword);
 
         newAccountLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 login();
+            }
+        });
+
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent forgotPassword = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(forgotPassword);
             }
         });
     }
