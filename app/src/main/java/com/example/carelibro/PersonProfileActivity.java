@@ -121,6 +121,9 @@ public class PersonProfileActivity extends AppCompatActivity {
                     if(CURRENT_STATE.equals("request_received")){
                         acceptFrinedRequest();
                     }
+                    if(CURRENT_STATE.equals("Friends")){
+                        unfriendAFriend();
+                    }
                 }
             });
         }else {
@@ -130,6 +133,32 @@ public class PersonProfileActivity extends AppCompatActivity {
         }
 
     }
+
+    private void unfriendAFriend(){
+        friedRef.child(senderUserId).child(receiverUserId)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            friedRef.child(receiverUserId).child(senderUserId)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            sendFriendRequest.setEnabled(true);
+                                            CURRENT_STATE = "Not Friends";
+                                            sendFriendRequest.setText("Send Friend Request");
+
+                                            declaineFriendRequest.setVisibility(View.INVISIBLE);
+                                            declaineFriendRequest.setEnabled(false);
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+    }
     private void acceptFrinedRequest(){
 
         Calendar calFordDate = Calendar.getInstance();
@@ -137,12 +166,12 @@ public class PersonProfileActivity extends AppCompatActivity {
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMM-yy");
         saveCurrentDate = currentDate.format(calFordDate.getTime());
 
-        friendRequestRef.child(senderUserId).child(receiverUserId).child("date").setValue(saveCurrentDate)
+        friedRef.child(senderUserId).child(receiverUserId).child("date").setValue(saveCurrentDate)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    friendRequestRef.child(receiverUserId).child(senderUserId).setValue(saveCurrentDate)
+                                    friedRef.child(receiverUserId).child(senderUserId).setValue(saveCurrentDate)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
@@ -192,7 +221,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             sendFriendRequest.setEnabled(true);
-                                            CURRENT_STATE = "Not Friend";
+                                            CURRENT_STATE = "Not Friends";
                                             sendFriendRequest.setText("Send Friend Request");
 
                                             declaineFriendRequest.setVisibility(View.INVISIBLE);
@@ -210,7 +239,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
+                        if(dataSnapshot.hasChild(receiverUserId)){
                             String request_type = dataSnapshot.child(receiverUserId).child("request_type").getValue().toString();
                             if(request_type.equals("send")){
                                 CURRENT_STATE = "request_send";
@@ -224,7 +253,32 @@ public class PersonProfileActivity extends AppCompatActivity {
 
                                 declaineFriendRequest.setVisibility(View.VISIBLE);
                                 declaineFriendRequest.setEnabled(true);
+
+                                declaineFriendRequest.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        cancelFriendRequest();
+                                    }
+                                });
                             }
+                        }else{
+                            friedRef.child(senderUserId)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists()){
+                                                CURRENT_STATE="Friends";
+                                                sendFriendRequest.setText("Unfriend this Person");
+                                                declaineFriendRequest.setVisibility(View.INVISIBLE);
+                                                declaineFriendRequest.setEnabled(false);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                         }
                     }
 
