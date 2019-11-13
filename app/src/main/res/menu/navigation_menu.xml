@@ -6,24 +6,20 @@
         android:title="Add post"
         android:icon="@drawable/add_post"/>
 
+
+    <item
+        android:id="@+id/nav_videoPost"
+        android:title="Add video post"
+        android:icon="@drawable/ic_ondemand_video_black_24dp"/>
+
     <item
         android:id="@+id/nav_profile"
         android:title="Profile"
         android:icon="@drawable/profile_icon"/>
 
     <item
-        android:id="@+id/nav_home"
-        android:title="Home"
-        android:icon="@drawable/home"/>
-
-    <item
-        android:id="@+id/nav_friends"
-        android:title="Friends"
-        android:icon="@drawable/friends"/>
-
-    <item
         android:id="@+id/nav_find_friends"
-        android:title="Find friends"
+        android:title="Search"
         android:icon="@drawable/ic_search"/>
 
     <item
@@ -35,4 +31,5 @@
         android:id="@+id/nav_logout"
         android:title="Logout"
         android:icon="@drawable/logout"/>
+
 </menu>

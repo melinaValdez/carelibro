@@ -236,37 +236,8 @@ public class SearchActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
 
-
-            //likePostButton = (ImageButton) mView.findViewById(R.id.btnLike);
-            //commentPostButton = (ImageButton) mView.findViewById(R.id.btnComment);
-            //numberOfLikes = (TextView) mView.findViewById(R.id.tvNumberOfLikes);
-
-            //likesReference = FirebaseDatabase.getInstance().getReference().child("Likes");
             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
-
-        /*public void setLikeButtonStatus(final String pPostKey){
-            likesReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child(pPostKey).hasChild(currentUserId)){
-                        likesCount = (int) dataSnapshot.child(pPostKey).getChildrenCount();
-                        likePostButton.setImageResource(R.drawable.like);
-                        numberOfLikes.setText(Integer.toString(likesCount));
-                    }
-                    else{
-                        likesCount = (int) dataSnapshot.child(pPostKey).getChildrenCount();
-                        likePostButton.setImageResource(R.drawable.dislike);
-                        numberOfLikes.setText(Integer.toString(likesCount));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });*/
-        //}
 
 
         public void setFullName(final String fullName){
