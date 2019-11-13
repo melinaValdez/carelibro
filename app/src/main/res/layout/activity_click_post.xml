@@ -26,6 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             app:srcCompat="@drawable/select_image" />
+
         <WebView
             android:id="@+id/youtube_video"
             android:layout_width="match_parent"
@@ -33,7 +34,9 @@
             android:layout_alignTop="@+id/imgPostPic"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="250dp"
+            android:background="@color/colorAccent"
             />
+
         <TextView
             android:id="@+id/tvPostDescription"
             android:layout_width="380dp"
