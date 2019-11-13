@@ -9,90 +9,131 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="-55dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfilePic"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/profile"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="40dp"
+            android:src="@drawable/profile" />
 
         <EditText
             android:id="@+id/txtUsername"
             android:layout_width="390dp"
             android:layout_height="40dp"
-            android:textSize="18sp"
-            android:ems="10"
-            android:gravity="start|center"
-            android:inputType="textMultiLine"
-            android:hint="Username"
-            android:layout_centerHorizontal="true"
             android:layout_alignTop="@+id/imgProfilePic"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="230dp"
             android:background="@color/white"
-            android:drawableLeft="@drawable/username"/>
+            android:drawableLeft="@drawable/username"
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="Username"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/txtFullName"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:textSize="18sp"
-            android:ems="10"
-            android:gravity="start|center"
-            android:inputType="textMultiLine"
-            android:hint="Full name"
             android:layout_alignStart="@+id/txtUsername"
-            android:layout_alignEnd="@+id/txtUsername"
             android:layout_alignTop="@+id/txtUsername"
+            android:layout_alignEnd="@+id/txtUsername"
             android:layout_marginTop="60dp"
             android:background="@color/white"
-            android:drawableLeft="@drawable/name"/>
+            android:drawableLeft="@drawable/name"
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="Full name"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/txtGender"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/txtFullName"
+            android:layout_alignTop="@+id/txtFullName"
+            android:layout_alignEnd="@+id/txtFullName"
+            android:layout_marginTop="60dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/gender_ico"
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="Gender"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/txtPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/txtGender"
+            android:layout_alignTop="@+id/txtGender"
+            android:layout_alignEnd="@+id/txtGender"
+            android:layout_marginTop="60dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/phone_ico"
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="Phone"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/txtCity"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:textSize="18sp"
+            android:layout_alignStart="@+id/txtPhone"
+            android:layout_alignTop="@+id/txtPhone"
+            android:layout_alignEnd="@+id/txtPhone"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/country"
             android:ems="10"
             android:gravity="start|center"
-            android:inputType="textMultiLine"
             android:hint="City"
-            android:layout_alignStart="@+id/txtUsername"
-            android:layout_alignEnd="@+id/txtUsername"
-            android:layout_alignTop="@+id/txtFullName"
-            android:layout_marginTop="60dp"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/country"/>
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/txtDateOfBirth"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:textSize="18sp"
+            android:layout_alignStart="@+id/txtUsername"
+            android:layout_alignTop="@+id/txtCity"
+            android:layout_alignEnd="@+id/txtUsername"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/birthday"
             android:ems="10"
             android:gravity="start|center"
-            android:inputType="text"
             android:hint="Date of birth: dd/mm/yy"
-            android:layout_alignStart="@+id/txtUsername"
-            android:layout_alignEnd="@+id/txtUsername"
-            android:layout_alignTop="@+id/txtCity"
-            android:layout_marginTop="60dp"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/birthday"/>
+            android:inputType="text"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
             android:layout_alignTop="@+id/txtDateOfBirth"
-            android:layout_marginTop="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="91dp"
+            android:layout_marginEnd="159dp"
             android:background="@drawable/buttons"
+            android:text="Save"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="16sp" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

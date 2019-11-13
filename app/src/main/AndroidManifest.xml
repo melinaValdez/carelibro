@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClickPostActivity"></activity>
+
         <activity android:name=".PostActivity" />
         <activity android:name=".SetUpActivity" />
+        <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +32,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.carelibro.LoginActivity" />
         </activity>
-        <activity android:name=".MainActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
