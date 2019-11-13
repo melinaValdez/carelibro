@@ -188,12 +188,9 @@ public class MainActivity extends AppCompatActivity {
                 sendUserToProfileActivity();
                 break;
 
-            case R.id.nav_friends:
-                Toast.makeText(this, "Friends selected", Toast.LENGTH_LONG).show();
-                break;
-
-            case R.id.nav_home:
-                Toast.makeText(this, "Home selected", Toast.LENGTH_LONG).show();
+            case R.id.nav_videoPost:
+                Intent videoPostIntent = new Intent(MainActivity.this, VideoPostActivity.class);
+                startActivity(videoPostIntent);
                 break;
 
             case R.id.nav_find_friends:
