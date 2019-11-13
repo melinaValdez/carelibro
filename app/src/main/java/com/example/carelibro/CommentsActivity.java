@@ -13,8 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +38,7 @@ public class CommentsActivity extends AppCompatActivity {
 
     private String postKey, currentUserId;
 
-    private DatabaseReference usersReference, postReference;
+    private DatabaseReference usersReference, commentsReference;
     private FirebaseAuth mAuth;
 
     @Override
@@ -49,7 +51,7 @@ public class CommentsActivity extends AppCompatActivity {
         currentUserId = mAuth.getCurrentUser().getUid();
 
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        postReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postKey).child("Comments");
+        commentsReference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postKey).child("Comments");
 
         mToolbar = (Toolbar) findViewById(R.id.updateComments_toolBar);
         setSupportActionBar(mToolbar);
@@ -113,8 +115,8 @@ public class CommentsActivity extends AppCompatActivity {
             commentsMap.put("comment", commentText);
             commentsMap.put("date", saveCurrentDate);
             commentsMap.put("time", saveCurrentTime);
-            commentsMap.put("fullNamel", userName);
-            postReference.child(randomKey).updateChildren(commentsMap).addOnCompleteListener(new OnCompleteListener() {
+            commentsMap.put("fullName", userName);
+            commentsReference.child(randomKey).updateChildren(commentsMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()){
@@ -146,5 +148,64 @@ public class CommentsActivity extends AppCompatActivity {
     {
         Intent mainIntent = new Intent(CommentsActivity.this, MainActivity.class);
         startActivity(mainIntent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter<Comments, CommentsViewHolder> firebaseRecyclerAdapter
+                = new FirebaseRecyclerAdapter<Comments, CommentsViewHolder>
+                (
+                        Comments.class,
+                        R.layout.all_comments_layout,
+                        CommentsViewHolder.class,
+                        commentsReference
+                ) {
+            @Override
+            protected void populateViewHolder(CommentsViewHolder commentsViewHolder, Comments comments, int i) {
+                commentsViewHolder.setFullName(comments.getFullName());
+                commentsViewHolder.setComment(comments.getComment());
+                commentsViewHolder.setDate(comments.getDate());
+                commentsViewHolder.setTime(comments.getTime());
+            }
+        };
+
+        commentsList.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    public static class CommentsViewHolder extends RecyclerView.ViewHolder{
+
+        View mView;
+
+        public CommentsViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setFullName(String fullName) {
+            TextView commentFullName = (TextView) mView.findViewById(R.id.lblCommentUserName);
+            commentFullName.setText(" " + fullName + "    ");
+        }
+
+        public void setComment(String comment) {
+            TextView commentText = (TextView) mView.findViewById(R.id.txtComment);
+            commentText.setText(comment);
+
+        }
+
+        public void setTime(String time) {
+            TextView commentTime = (TextView) mView.findViewById(R.id.commentTime);
+            commentTime.setText(time);
+
+        }
+
+        public void setDate(String date) {
+            TextView commentDate = (TextView) mView.findViewById(R.id.lblCommentDate);
+            commentDate.setText("      Date: " + date);
+
+        }
+
+
     }
 }
