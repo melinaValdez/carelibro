@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                                 orderedPostsReference
                         ) {
                     @Override
-                    protected void populateViewHolder(final PostsViewHolder postsViewHolder, Posts model, int position) {
+                    protected void populateViewHolder(final PostsViewHolder postsViewHolder, Posts model, final int position) {
                         final String postKey = getRef(position).getKey();
 
                         postsViewHolder.setFullName(model.getFullName());
@@ -313,7 +313,22 @@ public class MainActivity extends AppCompatActivity {
                         postsViewHolder.username.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(MainActivity.this, "You clicked the name", Toast.LENGTH_LONG).show();
+                                getRef(position).child("uid").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()){
+                                            String visit_id = dataSnapshot.getValue().toString();
+                                            Intent profileIntent = new Intent(MainActivity.this,PersonProfileActivity.class);
+                                            profileIntent.putExtra("visitUserId",visit_id);
+                                            startActivity(profileIntent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         });
                     }
