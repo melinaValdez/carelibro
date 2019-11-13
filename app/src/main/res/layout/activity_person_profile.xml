@@ -4,6 +4,157 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background">
     tools:context=".PersonProfileActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/profile_toolbar"
+                layout = "@layout/app_bar_layout">
+            </include>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgPerdonProfilePicture"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/profile"
+                android:layout_below="@id/profile_toolbar"
+                android:layout_margin="68dp" />
+
+            <TextView
+                android:id="@+id/tvPerdonProfileName"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/imgPerdonProfilePicture"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Full name: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPerdonProfileCity"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tvPerdonProfileName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="City: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvPerdonProfileDoB"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tvPerdonProfileCity"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Date of birth: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPerdonProfileGender"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tvPerdonProfileDoB"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Gender: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPerdonProfileRelationship"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tvPerdonProfileGender"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Relationship status: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPerdonProfilePhone"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tvPerdonProfileRelationship"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Phone number: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPerdonProfilePlaceOfStudy"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tvPerdonProfilePhone"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Place of study: "
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnPersonSend"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/buttons"
+                android:layout_below="@id/tvPerdonProfilePlaceOfStudy"
+                android:text="Send Friend Request"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/btnPersonDecline"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/google_button_color"
+                android:layout_below="@id/btnPersonSend"
+                android:text="Declaine Friend Request"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"/>
+
+
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
