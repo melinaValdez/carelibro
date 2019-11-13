@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:background="@color/cardview_dark_background">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/profile_toolbar"
+                    layout = "@layout/app_bar_layout">
+                </include>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfilePicture"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/profile"
+                    android:layout_below="@id/profile_toolbar"
+                    android:layout_margin="68dp" />
+
+                <TextView
+                    android:id="@+id/tvProfileName"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/imgProfilePicture"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Full name: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProfileCity"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvProfileName"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="City: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvProfileDoB"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvProfileCity"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Date of birth: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProfileGender"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvProfileDoB"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Gender: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProfileRelationship"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvProfileGender"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Relationship status: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProfilePhone"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvProfileRelationship"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Phone number: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProfilePlaceOfStudy"
+                    android:layout_width="330dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/tvProfilePhone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Place of study: "
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

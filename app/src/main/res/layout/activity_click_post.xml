@@ -35,9 +35,9 @@
             android:layout_alignTop="@+id/imgPostPic"
             android:layout_marginTop="250dp"
             android:layout_centerHorizontal="true"
-            android:background="@color/white"
             android:textSize="18sp"
-            android:padding="4dp"/>
+            android:padding="4dp"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btnEditPost"
