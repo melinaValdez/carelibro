@@ -1,10 +1,13 @@
 package com.example.carelibro;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,11 +25,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.carelibro.SetUpActivity.galleryPic;
 
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
@@ -37,6 +49,10 @@ public class SettingsActivity extends AppCompatActivity {
     private String currentUserId;
 
     final static int galleryPic = 1;
+
+    private StorageReference userProfilePicReference;
+
+    private ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +67,9 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         settingsUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        userProfilePicReference = FirebaseStorage.getInstance().getReference().child("Profile images");
+
+        loadingDialog = new ProgressDialog(this);
 
         userfullName = findViewById(R.id.settingsFullName);
         userCity = findViewById(R.id.settingsCity);
@@ -103,13 +122,10 @@ public class SettingsActivity extends AppCompatActivity {
         userProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                @Override
-                public void onClick(View view) {
-                    Intent galleryIntent = new Intent();
-                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                    galleryIntent.setType("image/*");
-                    startActivityForResult(galleryIntent, galleryPic);
-
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, galleryPic);
             }
         });
 
@@ -168,5 +184,68 @@ public class SettingsActivity extends AppCompatActivity {
         mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainActivity);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == galleryPic && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(this);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+                loadingDialog.setTitle("Profile Image");
+                loadingDialog.setMessage("Please, wait while we update your profile image");
+                loadingDialog.show();
+                loadingDialog.setCanceledOnTouchOutside(true);
+
+                Uri resultUri = result.getUri();
+                StorageReference filePath = userProfilePicReference.child(currentUserId);
+                filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(SettingsActivity.this, "Profile image stored successfully", Toast.LENGTH_SHORT).show();
+                        userProfilePicReference.child(currentUserId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                settingsUserReference.child("profilePic").setValue(uri.toString())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Intent selfIntent = new Intent(SettingsActivity.this, SettingsActivity.class);
+                                                    startActivity(selfIntent);
+                                                    Toast.makeText(SettingsActivity.this, "Profile image saved", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    String message = task.getException().getMessage();
+                                                    Toast.makeText(SettingsActivity.this, "Error occured: " + message, Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                String message = taskSnapshot.getError().getMessage().toString();
+                                                Toast.makeText(SettingsActivity.this, "Error 1 occured: " + message, Toast.LENGTH_LONG).show();
+                                            };
+                                        });
+                            }
+                        });
+
+                    }
+                });
+
+            } else {
+                Toast.makeText(SettingsActivity.this, "Image couldn't be cropped. Please try again", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
