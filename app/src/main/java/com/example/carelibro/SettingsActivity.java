@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -123,22 +124,34 @@ public class SettingsActivity extends AppCompatActivity {
         }
         else{
             HashMap userMap = new HashMap();
-            userMap.put("fullName", userfullName.getText());
-            userMap.put("city", userCity.getText());
-            userMap.put("dateOfBirth", userDoB.getText());
-            userMap.put("gender", userGender.getText());
-            userMap.put("relationshipStatus", userRelationship.getText());
-            userMap.put("placeOfStudy", userPlaceOfStudy.getText());
-            userMap.put("phoneNumber", userPhoneNumber.getText());
+            userMap.put("fullName", userfullName.getText().toString());
+            userMap.put("city", userCity.getText().toString());
+            userMap.put("dateOfBirth", userDoB.getText().toString());
+            userMap.put("gender", userGender.getText().toString());
+            userMap.put("relationshipStatus", userRelationship.getText().toString());
+            userMap.put("placeOfStudy", userPlaceOfStudy.getText().toString());
+            userMap.put("phoneNumber", userPhoneNumber.getText().toString());
             settingsUserReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()){
                         Toast.makeText(SettingsActivity.this, "Acoount data updated succesfully", Toast.LENGTH_LONG).show();
+                        sendUserToMainAcitivty();
+                    }
+                    else{
+                        String message = task.getException().getMessage();
+                        Toast.makeText(SettingsActivity.this, "Error: " + message, Toast.LENGTH_LONG).show();
                     }
                 }
             });
         }
 
+    }
+
+    private void sendUserToMainAcitivty(){
+        Intent mainActivity = new Intent(SettingsActivity.this, MainActivity.class);
+        mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainActivity);
+        finish();
     }
 }

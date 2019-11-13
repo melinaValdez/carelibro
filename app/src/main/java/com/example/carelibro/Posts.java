@@ -1,21 +1,21 @@
 package com.example.carelibro;
 
 public class Posts {
-    public String uid, time, date, postimage, description, profileimage, fullname;
+    public String uid, time, date, postimage, description, profileimage, fullName;
 
     public Posts()
     {
 
     }
 
-    public Posts(String uid, String time, String date, String postimage, String description, String profileimage, String fullname) {
+    public Posts(String uid, String time, String date, String postimage, String description, String profileimage, String fullName) {
         this.uid = uid;
         this.time = time;
         this.date = date;
         this.postimage = postimage;
         this.description = description;
         this.profileimage = profileimage;
-        this.fullname = fullname;
+        this.fullName = fullName;
     }
 
     public String getUid() {
@@ -66,11 +66,11 @@ public class Posts {
         this.profileimage = profileimage;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullname) {
+        this.fullName = fullname;
     }
 }

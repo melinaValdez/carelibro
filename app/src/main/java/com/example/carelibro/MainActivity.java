@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                     protected void populateViewHolder(final PostsViewHolder postsViewHolder, Posts model, int position) {
                         final String postKey = getRef(position).getKey();
 
-                        postsViewHolder.setFullName(model.getFullname());
+                        postsViewHolder.setFullName(model.getFullName());
                         postsViewHolder.setTime(model.getTime());
                         postsViewHolder.setDate(model.getDate());
                         postsViewHolder.setDescription(model.getDescription());
