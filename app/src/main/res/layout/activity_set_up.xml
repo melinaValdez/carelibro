@@ -53,21 +53,54 @@
             android:padding="4dp"/>
 
         <EditText
+            android:id="@+id/txtGender"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/txtFullName"
+            android:layout_alignTop="@+id/txtFullName"
+            android:layout_alignEnd="@+id/txtFullName"
+            android:layout_marginTop="60dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/gender_ico"
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="Gender"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/txtPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/txtGender"
+            android:layout_alignTop="@+id/txtGender"
+            android:layout_alignEnd="@+id/txtGender"
+            android:layout_marginTop="60dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/phone_ico"
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="Phone"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
+
+        <EditText
             android:id="@+id/txtCity"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:textSize="18sp"
-            android:ems="10"
-            android:gravity="start|center"
-            android:inputType="textMultiLine"
-            android:hint="City"
-            android:layout_alignStart="@+id/txtUsername"
-            android:layout_alignEnd="@+id/txtUsername"
-            android:layout_alignTop="@+id/txtFullName"
+            android:layout_alignStart="@+id/txtPhone"
+            android:layout_alignTop="@+id/txtPhone"
+            android:layout_alignEnd="@+id/txtPhone"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="60dp"
+            android:layout_marginEnd="0dp"
             android:background="@color/white"
             android:drawableLeft="@drawable/country"
-            android:padding="4dp"/>
+            android:ems="10"
+            android:gravity="start|center"
+            android:hint="City"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/txtDateOfBirth"
