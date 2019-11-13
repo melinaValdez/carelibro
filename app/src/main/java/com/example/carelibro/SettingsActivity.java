@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.EventListener;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,7 +42,7 @@ import static com.example.carelibro.SetUpActivity.galleryPic;
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private EditText userfullName, userCity, userGender, userRelationship, userPhoneNumber, userPlaceOfStudy, userDoB;
-    private Button updateInfoButton;
+    private Button updateInfoButton, deleteAccountButton;
     private CircleImageView userProfilePic;
 
     private DatabaseReference settingsUserReference;
@@ -77,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
         userPhoneNumber = findViewById(R.id.settingsPhoneNumber);
         userPlaceOfStudy = findViewById(R.id.settingsStudy);
         updateInfoButton = findViewById(R.id.btnUpdateData);
+        deleteAccountButton = findViewById(R.id.btnDeleteAccount);
         userDoB = findViewById(R.id.settingsDateOfBirth);
         userProfilePic = findViewById(R.id.settingsProfileImage);
         userGender = findViewById(R.id.settingsGender);
@@ -126,6 +128,15 @@ public class SettingsActivity extends AppCompatActivity {
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, galleryPic);
+            }
+        });
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).removeValue();
+                mAuth.getCurrentUser().delete();
+                sendUserToMainAcitivty();
             }
         });
 

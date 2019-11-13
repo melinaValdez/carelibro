@@ -26,7 +26,7 @@
 
             <EditText
                 android:id="@+id/txtSearchInput"
-                android:layout_width="320dp"
+                android:layout_width="280dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp"
@@ -43,10 +43,20 @@
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
-                app:srcCompat="@drawable/ic_search"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/buttons"/>
+                android:background="@drawable/profile_icon"/>
+
+            <ImageButton
+                android:id="@+id/btnSearchPosts"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="70dp"
+                android:background="@drawable/buttons"
+                android:src="@drawable/ic_search"/>
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -131,7 +131,21 @@
                     android:background="@drawable/buttons"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="60dp"/>
+
+                <Button
+                    android:id="@+id/btnDeleteAccount"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Delete account"
+                    android:layout_below="@+id/settingsStudy"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/google_button_color"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60dp" />
 
 
 
