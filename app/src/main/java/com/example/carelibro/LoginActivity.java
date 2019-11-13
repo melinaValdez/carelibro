@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userEmail, userPassword;
     private TextView newAccountLink, resetPassword;
 
-    private RelativeLayout googleSignInButton;
+    private SignInButton googleSignInButton;
 
     private FirebaseAuth mAuth;
 
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         resetPassword = findViewById(R.id.txtForgetPassword);
 
         googleSignInButton = findViewById(R.id.googleSignInButton);
+        googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
 
         newAccountLink.setOnClickListener(new View.OnClickListener() {
             @Override
