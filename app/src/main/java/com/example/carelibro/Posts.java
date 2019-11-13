@@ -20,8 +20,7 @@ public class Posts {
         this.postimage = postimage;
         this.description = description;
         this.profileimage = profileimage;
-
-        this.fullname = fullname;
+        this.fullName = fullName;
 
     }
 

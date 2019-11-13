@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,6 +41,7 @@ public class PostActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ProgressDialog loadingBar;
 
+    private ImageView postImage;
     private ImageButton SelectPostImage;
     private Button UpdatePostButton;
     private EditText PostDescription;
@@ -66,8 +68,8 @@ public class PostActivity extends AppCompatActivity {
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
-
-        SelectPostImage = (ImageButton) findViewById(R.id.imgPicture);
+        postImage = findViewById(R.id.imgImage);
+        SelectPostImage = (ImageButton) findViewById(R.id.btnAddImage);
         UpdatePostButton = (Button) findViewById(R.id.btnPost);
         PostDescription =(EditText) findViewById(R.id.txtDescription);
         loadingBar = new ProgressDialog(this);
@@ -84,6 +86,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                postImage.setVisibility(postImage.VISIBLE);
                 OpenGallery();
             }
         });
@@ -106,7 +109,23 @@ public class PostActivity extends AppCompatActivity {
         loadingBar.show();
         loadingBar.setCanceledOnTouchOutside(true);
 
-        StoringImageToFirebaseStorage();
+        if (postImage.VISIBLE == postImage.getVisibility()) {
+            StoringImageToFirebaseStorage();
+        }
+        else{
+            Calendar calFordDate = Calendar.getInstance();
+            SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMM-yy");
+            saveCurrentDate = currentDate.format(calFordDate.getTime());
+
+            Calendar calFordTime = Calendar.getInstance();
+            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+            saveCurrentTime = currentTime.format(calFordDate.getTime());
+
+            postRandomName = current_user_id + saveCurrentTime;
+
+            downloadUrl = null;
+            SavingPostInformationToDatabase();
+        }
     }
 
 
@@ -151,8 +170,6 @@ public class PostActivity extends AppCompatActivity {
     }
 
 
-
-
     private void SavingPostInformationToDatabase()
     {
         UsersRef.child(current_user_id).addValueEventListener(new ValueEventListener() {
@@ -169,7 +186,9 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("date", saveCurrentDate);
                     postsMap.put("time", saveCurrentTime);
                     postsMap.put("description", Description);
-                    postsMap.put("postimage", downloadUrl);
+                    if (downloadUrl != null){
+                        postsMap.put("postimage", downloadUrl);
+                    }
                     postsMap.put("profileimage", userProfileImage);
                     postsMap.put("fullName", userFullName);
                     PostsRef.child(current_user_id + postRandomName).updateChildren(postsMap)
@@ -210,8 +229,6 @@ public class PostActivity extends AppCompatActivity {
         startActivityForResult(galleryIntent, Gallery_Pick);
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -220,7 +237,7 @@ public class PostActivity extends AppCompatActivity {
         if(requestCode==Gallery_Pick && resultCode==RESULT_OK && data!=null)
         {
             ImageUri = data.getData();
-            SelectPostImage.setImageURI(ImageUri);
+            postImage.setImageURI(ImageUri);
         }
     }
 

@@ -255,7 +255,12 @@ public class MainActivity extends AppCompatActivity {
                         postsViewHolder.setDate(model.getDate());
                         postsViewHolder.setDescription(model.getDescription());
                         postsViewHolder.setProfilePic(model.getProfileimage());
-                        postsViewHolder.setPostImage(model.getPostimage());
+                        if (model.getPostimage() != null){
+                            postsViewHolder.setPostImage(model.getPostimage());
+                        }
+                        else{
+                            postsViewHolder.setNoPostImage();
+                        }
 
                         postsViewHolder.setLikeButtonStatus(postKey);
 
@@ -392,6 +397,11 @@ public class MainActivity extends AppCompatActivity {
         public void setPostImage(String postImage){
             ImageView postPic = (ImageView) mView.findViewById(R.id.imgPostImage);
             Picasso.get().load(postImage).placeholder(R.drawable.add_post).into(postPic);
+        }
+
+        public void setNoPostImage(){
+            ImageView postPic = (ImageView) mView.findViewById(R.id.imgPostImage);
+            postPic.setVisibility(postPic.INVISIBLE);
         }
     }
 }
