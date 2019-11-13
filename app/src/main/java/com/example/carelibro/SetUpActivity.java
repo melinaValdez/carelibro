@@ -91,9 +91,12 @@ public class SetUpActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     if (dataSnapshot.hasChild("profilePic")){
-                        String image = dataSnapshot.child("profilePic").getValue().toString();
-                        Picasso.get().load(image).placeholder(R.drawable.profile).into((imgProfilePic));
-                        Toast.makeText(SetUpActivity.this, image, Toast.LENGTH_LONG).show();
+                        userProfilePicReference.child(currentUserId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Picasso.get().load(uri).placeholder(R.drawable.profile).into((imgProfilePic));
+                            }
+                        });
                     }
                 }
             }
@@ -132,7 +135,7 @@ public class SetUpActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                         Toast.makeText(SetUpActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
-                        final String downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                        final String downloadUrl = userProfilePicReference.child(currentUserId).getDownloadUrl().toString();
                         userReference.child("profilePic").setValue(downloadUrl)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -200,6 +203,8 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("dateOfBirth", dateOfBirth);
             userMap.put("gender", "None");
             userMap.put("relationshipStatus", "None");
+            userMap.put("placeOfStudy", "None");
+            userMap.put("phoneNumber", "None");
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {

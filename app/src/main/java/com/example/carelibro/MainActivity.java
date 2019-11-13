@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_settings:
-                Toast.makeText(this, "Settings selected", Toast.LENGTH_LONG).show();
+                sendUserToSettingsActivity();
                 break;
 
             case R.id.nav_logout:
@@ -214,6 +214,11 @@ public class MainActivity extends AppCompatActivity {
     private void sendUserToNewPostActivity(){
         Intent addPostActivity = new Intent(MainActivity.this, PostActivity.class);
         startActivity(addPostActivity);
+    }
+
+    private void sendUserToSettingsActivity(){
+        Intent settingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(settingsActivity);
     }
 
     private void displayAllUsersPosts(){

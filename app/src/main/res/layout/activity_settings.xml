@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity"
+    android:background="@color/colorAccent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <include
+            android:id="@+id/settings_toolbar"
+            layout="@layout/app_bar_layout" >
+        </include>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/settings_toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/settingsProfileImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/profile"/>
+
+                <EditText
+                    android:id="@+id/settingsFullName"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsProfileImage"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="Full name"/>
+
+                <EditText
+                    android:id="@+id/settingsCity"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsFullName"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="City"/>
+
+                <EditText
+                    android:id="@+id/settingsDateOfBirth"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsCity"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="Date of birth"/>
+
+                <EditText
+                    android:id="@+id/settingsGender"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsDateOfBirth"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="Gender"/>
+
+                <EditText
+                    android:id="@+id/settingsRelationship"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsGender"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="Relationship status"/>
+
+                <EditText
+                    android:id="@+id/settingsPhoneNumber"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsRelationship"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="Phone number"/>
+
+                <EditText
+                    android:id="@+id/settingsStudy"
+                    android:layout_width="380dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/settingsPhoneNumber"
+                    android:background="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:padding="4dp"
+                    android:gravity="start|center"
+                    android:hint="Place of study"/>
+
+                <Button
+                    android:id="@+id/btnUpdateData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:layout_below="@+id/settingsStudy"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/buttons"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"/>
+
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
