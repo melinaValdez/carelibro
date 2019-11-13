@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             }else{
+
                 Toast.makeText(this, "Can´t get Auth Result", Toast.LENGTH_SHORT).show();
             }
         }

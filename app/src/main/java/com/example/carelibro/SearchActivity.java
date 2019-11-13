@@ -74,10 +74,19 @@ public class SearchActivity extends AppCompatActivity {
                         searchPeopleQuery
                 ) {
             @Override
-            protected void populateViewHolder(FindFriendsViewHolder findFriendsViewHolder, FindFriends model, int i) {
+            protected void populateViewHolder(FindFriendsViewHolder findFriendsViewHolder, FindFriends model,final int i) {
                 findFriendsViewHolder.setFullName(model.getFullName());
                 findFriendsViewHolder.setCity(model.getCity());
                 findFriendsViewHolder.setProfilePic(model.getProfilePic());
+                findFriendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String visit_user_id = getRef(i).getKey();
+                        Intent profileIntent = new Intent(SearchActivity.this,PersonProfileActivity.class);
+                        profileIntent.putExtra("visitUserId",visit_user_id);
+                        startActivity(profileIntent);
+                    }
+                });
             }
         };
         searchResultList.setAdapter(firebaseRecyclerAdapter);
