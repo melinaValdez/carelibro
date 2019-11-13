@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     private void UserMenuSelector(MenuItem item){
         switch (item.getItemId()){
             case R.id.nav_profile:
-                Toast.makeText(this, "Profile selected", Toast.LENGTH_LONG).show();
+                sendUserToProfileActivity();
                 break;
 
             case R.id.nav_friends:
@@ -219,6 +219,11 @@ public class MainActivity extends AppCompatActivity {
     private void sendUserToSettingsActivity(){
         Intent settingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsActivity);
+    }
+
+    private void sendUserToProfileActivity(){
+        Intent profileActivity = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(profileActivity);
     }
 
     private void displayAllUsersPosts(){
@@ -299,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
                 };
         postList.setAdapter(firebaseRecyclerAdapter);
     }
+
+
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder{
         View mView;
