@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
         updateInfoButton = findViewById(R.id.btnUpdateData);
         userDoB = findViewById(R.id.settingsDateOfBirth);
         userProfilePic = findViewById(R.id.settingsProfileImage);
+        userGender = findViewById(R.id.settingsGender);
 
         settingsUserReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -65,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String myPlaceOfStudy = dataSnapshot.child("placeOfStudy").getValue().toString();
 
                     Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfilePic);
+
                     userfullName.setText(myFullName);
                     userCity.setText(myCity);
                     userGender.setText(myGender);
@@ -80,6 +89,56 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+
+        updateInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateAccountInfo();
+            }
+        });
+
+    }
+
+    private void validateAccountInfo() {
+        if (TextUtils.isEmpty(userfullName.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your name",Toast.LENGTH_LONG).show();
+        }
+        else if (TextUtils.isEmpty(userCity.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your city",Toast.LENGTH_LONG).show();
+        }
+        else if (TextUtils.isEmpty(userDoB.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your date of birth",Toast.LENGTH_LONG).show();
+        }
+        else if (TextUtils.isEmpty(userGender.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your gender",Toast.LENGTH_LONG).show();
+        }
+        else if (TextUtils.isEmpty(userRelationship.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your relationship status",Toast.LENGTH_LONG).show();
+        }
+        else if (TextUtils.isEmpty(userPhoneNumber.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your phone number",Toast.LENGTH_LONG).show();
+        }
+        else if (TextUtils.isEmpty(userPlaceOfStudy.getText())){
+            Toast.makeText(SettingsActivity.this,"Please. write your place of study",Toast.LENGTH_LONG).show();
+        }
+        else{
+            HashMap userMap = new HashMap();
+            userMap.put("fullName", userfullName.getText());
+            userMap.put("city", userCity.getText());
+            userMap.put("dateOfBirth", userDoB.getText());
+            userMap.put("gender", userGender.getText());
+            userMap.put("relationshipStatus", userRelationship.getText());
+            userMap.put("placeOfStudy", userPlaceOfStudy.getText());
+            userMap.put("phoneNumber", userPhoneNumber.getText());
+            settingsUserReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(SettingsActivity.this, "Acoount data updated succesfully", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
 
     }
 }

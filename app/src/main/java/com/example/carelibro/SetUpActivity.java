@@ -201,10 +201,10 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("fullName", fullName);
             userMap.put("city", city);
             userMap.put("dateOfBirth", dateOfBirth);
-            userMap.put("gender", "None");
-            userMap.put("relationshipStatus", "None");
-            userMap.put("placeOfStudy", "None");
-            userMap.put("phoneNumber", "None");
+            userMap.put("gender", "Gender");
+            userMap.put("relationshipStatus", "Relationship status");
+            userMap.put("placeOfStudy", "Place of study");
+            userMap.put("phoneNumber", "Phone number");
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
