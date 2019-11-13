@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_find_friends:
-                Toast.makeText(this, "Find friends selected", Toast.LENGTH_LONG).show();
+                sendUserToSearchActivity();
                 break;
 
             case R.id.nav_post:
@@ -224,6 +224,11 @@ public class MainActivity extends AppCompatActivity {
     private void sendUserToProfileActivity(){
         Intent profileActivity = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(profileActivity);
+    }
+
+    private void sendUserToSearchActivity(){
+        Intent searchActivity = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(searchActivity);
     }
 
     private void displayAllUsersPosts(){
