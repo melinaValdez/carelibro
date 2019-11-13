@@ -3,7 +3,9 @@ package com.example.carelibro;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -31,10 +33,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mToolbar = findViewById(R.id.profile_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.profile_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Accounts settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Profile");
 
         userfullName = findViewById(R.id.tvProfileName);
         userCity = findViewById(R.id.tvProfileCity);
@@ -77,6 +80,23 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home)
+        {
+            SendUserToMainActivity();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    private void SendUserToMainActivity()
+    {
+        Intent mainIntent = new Intent(ProfileActivity.this, MainActivity.class);
+        startActivity(mainIntent);
     }
 }

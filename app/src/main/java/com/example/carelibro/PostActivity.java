@@ -224,8 +224,6 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -238,8 +236,6 @@ public class PostActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
     private void SendUserToMainActivity()
     {
