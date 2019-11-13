@@ -136,7 +136,7 @@ public class SetUpActivity extends AppCompatActivity {
                 filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(SetUpActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SetUpActivity.this, "Profile image stored successfully", Toast.LENGTH_SHORT).show();
                         userProfilePicReference.child(currentUserId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
@@ -212,16 +212,13 @@ public class SetUpActivity extends AppCompatActivity {
             userMap.put("fullName", fullName);
             userMap.put("city", city);
             userMap.put("dateOfBirth", dateOfBirth);
-<<<<<<< HEAD
             userMap.put("gender", gender);
             userMap.put("phone",phone);
             userMap.put("id",mAuth.getCurrentUser().getUid());
-=======
             userMap.put("gender", "None");
             userMap.put("relationshipStatus", "None");
             userMap.put("placeOfStudy", "None");
             userMap.put("phoneNumber", "None");
->>>>>>> 82bfa16b0900b67cb4ddb905b47d8a54848ed9e3
             userReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
