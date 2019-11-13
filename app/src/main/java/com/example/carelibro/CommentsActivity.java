@@ -202,7 +202,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         public void setDate(String date) {
             TextView commentDate = (TextView) mView.findViewById(R.id.lblCommentDate);
-            commentDate.setText("      Date: " + date);
+            commentDate.setText("      " + date);
 
         }
 

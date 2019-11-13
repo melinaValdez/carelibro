@@ -36,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String currentUserId;
 
+    final static int galleryPic = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +97,19 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validateAccountInfo();
+            }
+        });
+
+        userProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                @Override
+                public void onClick(View view) {
+                    Intent galleryIntent = new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    galleryIntent.setType("image/*");
+                    startActivityForResult(galleryIntent, galleryPic);
+
             }
         });
 
