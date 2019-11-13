@@ -26,14 +26,21 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             app:srcCompat="@drawable/select_image" />
-
+        <WebView
+            android:id="@+id/youtube_video"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_alignTop="@+id/imgPostPic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dp"
+            />
         <TextView
             android:id="@+id/tvPostDescription"
             android:layout_width="380dp"
             android:layout_height="100dp"
             android:text="Post description"
-            android:layout_alignTop="@+id/imgPostPic"
-            android:layout_marginTop="250dp"
+            android:layout_alignTop="@+id/youtube_video"
+            android:layout_marginTop="200dp"
             android:layout_centerHorizontal="true"
             android:textSize="18sp"
             android:padding="4dp"

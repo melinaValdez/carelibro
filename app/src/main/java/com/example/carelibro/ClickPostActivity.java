@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,7 +37,9 @@ public class ClickPostActivity extends AppCompatActivity {
     private DatabaseReference clickPostReference;
     private FirebaseAuth mAuth;
 
-    private String postKey, currentUserId, databaseUserId, description, image;
+    WebView videoWeb;
+
+    private String postKey, currentUserId, databaseUserId, description, image, videoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,14 @@ public class ClickPostActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.btnDeletePost);
         deleteButton.setVisibility(View.INVISIBLE);
 
+
+
+        videoWeb = findViewById(R.id.youtube_video);
+        videoWeb.setWebChromeClient(new WebChromeClient());
+
+        WebSettings ws = videoWeb.getSettings();
+        ws.setJavaScriptEnabled(true);
+
         postKey = getIntent().getExtras().get("postKey").toString();
 
         mAuth = FirebaseAuth.getInstance();
@@ -67,9 +80,13 @@ public class ClickPostActivity extends AppCompatActivity {
                     description = dataSnapshot.child("description").getValue().toString();
                     image = dataSnapshot.child("postimage").getValue().toString();
                     databaseUserId = dataSnapshot.child("uid").getValue().toString();
+                    videoUrl = dataSnapshot.child("videoUrl").getValue().toString();
 
                     postDescription.setText(description);
                     Picasso.get().load(image).into(postImage);
+
+
+                    videoWeb.loadUrl(videoUrl);
 
                     if (currentUserId.equals(databaseUserId)){
                         deleteButton.setVisibility(View.VISIBLE);
@@ -97,6 +114,16 @@ public class ClickPostActivity extends AppCompatActivity {
                 deleteCurrentPost();
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(videoWeb.canGoBack()){
+            videoWeb.goBack();
+        }else{
+            super.onBackPressed();
+        }
     }
 
     private void editCurrentPost(String description) {
